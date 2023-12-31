@@ -1,31 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { socket } from "../utils/socket";
 
-
-import logo from '../logo.svg';
 const Home = () => {
-    useEffect(() => {
-        socket.connect();
+  const [rooms, setRooms] = useState({});
+
+  useEffect(() => {
+    socket.emit("get_rooms");
+    socket.on("get_rooms", (response) => {
+      setRooms(response.rooms);
+    });
+
+    return () => {
+      socket.disconnect();
+    }
+  }, []);
+
+  return(
+      <div>
+        <h1>Coffee Chat Rooms</h1>
+
         
-    }, []);
-    return(
-        <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+        <div className="row row-cols-3">
+          {Object.entries(rooms).map(([key, value]) => (
+            <div className="col" key={key}>
+              <div className="card card-body shadow-sm">
+                {key}
+              </div>
+            </div>
+          ))}
+        </div>
+    </div>
+  );
 }
 
 export default Home;

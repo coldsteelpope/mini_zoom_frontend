@@ -49,8 +49,6 @@ const Video = ({ stream }) => {
 const Room = () => {
     const { roomNum } = useParams();
     // peerconnection container: 생성된 peer connection들을 관리
-    const dataChannelsRef = useRef({});
-
     const pcRef = useRef({});
     const localVideoRef = useRef(null);
     const localStreamRef = useRef();
@@ -74,9 +72,6 @@ const Room = () => {
     const GetRTCPeerConnection = (receiveSocketID) => {
         const rtcPeerConnection = new RTCPeerConnection(pc_config);
         
-        const dataChannel = rtcPeerConnection.createDataChannel(roomNum);
-        console.log(dataChannel)
-
         // Create Ice Candidate Event
         rtcPeerConnection.onicecandidate = (event) => {
             if(event.candidate && socket)
@@ -189,7 +184,6 @@ const Room = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
-    console.log(users);
     return(
         <div>
             <video ref={localVideoRef} autoPlay></video>
