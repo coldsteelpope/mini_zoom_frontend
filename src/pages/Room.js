@@ -114,6 +114,12 @@ const Room = () => {
     useEffect(() => {
         GetLocalStream();
 
+        socket.on("room_full", (response) => {
+            console.log('hi')
+            alert("만석인 테이블입니다.")
+            window.location.href = "/";
+        });
+
         socket.on("remain_users", (response) => {
             const remainUsers = response.remainUsers;
             remainUsers.forEach(async(remainUser) => {
@@ -189,7 +195,7 @@ const Room = () => {
     
     return(
         <div>
-            <div className="row row-cols-md-2 g-0">
+            <div className="row row-cols-1 row-cols-md-2 g-0">
                 <div className="col" style={{ height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                     <video className="w-50" ref={localVideoRef} autoPlay></video>
                 </div>
