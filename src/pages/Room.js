@@ -38,10 +38,13 @@ const Video = ({ stream }) => {
     else
     {
         return(
-            <video
-                ref={ref}
-                autoPlay
-            ></video>
+            <div className="col" style={{ height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                <video
+                    className="w-50"
+                    ref={ref}
+                    autoPlay
+                ></video>
+            </div>
         )
     }
 }
@@ -186,12 +189,16 @@ const Room = () => {
     
     return(
         <div>
-            <video ref={localVideoRef} autoPlay></video>
-            {users.map((user, index) => {
-                return(
-                    <Video key={index} stream={user.stream} />
-                )
-            })}
+            <div className="row row-cols-md-2 g-0">
+                <div className="col" style={{ height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <video className="w-50" ref={localVideoRef} autoPlay></video>
+                </div>
+                {users.map((user, index) => {
+                    return(
+                        <Video key={index} stream={user.stream} />
+                    )
+                })}
+            </div>
         </div>
     );
 }
