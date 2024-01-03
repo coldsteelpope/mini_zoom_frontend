@@ -38,9 +38,10 @@ const Video = ({ stream }) => {
     else
     {
         return(
-            <div className="col" style={{ height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <div className="col">
                 <video
-                    className="w-50"
+                    className="w-100"
+
                     ref={ref}
                     autoPlay
                 ></video>
@@ -113,9 +114,7 @@ const Room = () => {
 
     useEffect(() => {
         GetLocalStream();
-
         socket.on("room_full", (response) => {
-            console.log('hi')
             alert("만석인 테이블입니다.")
             window.location.href = "/";
         });
@@ -195,16 +194,30 @@ const Room = () => {
     
     return(
         <div>
-            <div className="row row-cols-1 row-cols-md-2 g-0">
-                <div className="col" style={{ height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                    <video className="w-50" ref={localVideoRef} autoPlay></video>
+            <header className="d-flex justify-content-center py-3">
+                <ul className="nav nav-pills">
+                    <li className="nav-item"><a href="/" className="nav-link"><i className="bi bi-x-circle-fill"></i> 돌아가기</a></li>
+                    <li className="nav-item"><a href={`/room/${roomNum}`} className="nav-link"><i className="bi bi-arrow-clockwise"></i> 재접속하기</a></li>
+                </ul>
+            </header>
+            <section>
+                <div className="container my-5">
+                    <div className="row row-cols-1 row-cols-md-2 g-0">
+                        <div className="col">
+                            <video 
+                                className="w-100" 
+                                ref={localVideoRef} 
+                                autoPlay
+                            ></video>
+                        </div>
+                        {users.map((user, index) => {
+                            return(
+                                <Video key={index} stream={user.stream} />
+                            )
+                        })}
+                    </div>
                 </div>
-                {users.map((user, index) => {
-                    return(
-                        <Video key={index} stream={user.stream} />
-                    )
-                })}
-            </div>
+            </section>
         </div>
     );
 }
