@@ -2,6 +2,7 @@
 WEBRTC 연습을 위해 진행한 클론 코딩 프로젝트입니다. 다른 클론 코딩 프로젝트와의 차이점은 Mesh 방식으로 1:N 영상 통화를 가능하게 만들었습니다.
 
 [예시 사이트](https://mini-zoom-front.onrender.com)
+
 [서버 코드 확인하기](https://github.com/coldsteelpope/mini_zoom_signaling_server)
 
 ## 1. 기능
